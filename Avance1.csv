@@ -1,0 +1,31 @@
+
+rm(list = ls())
+
+suppressMessages(library(plotly)) # Graficas interactivas
+suppressMessages(library(Quandl)) # Descargar Precios
+suppressMessages(library(ROI))    # Optimizacion para portafolio
+suppressMessages(library(knitr))  # Opciones de documentaci?n + c?digo
+suppressMessages(library(openxlsx))   # Leer archivos XLSx
+suppressMessages(library(kableExtra)) # Tablas en HTML
+suppressMessages(library(PortfolioAnalytics)) # Teoria Moderna de Portafolios
+
+options(knitr.table.format = "html") 
+
+### Cargar datos
+Etf.IVV <- read.csv("C:/Users/if685009/Desktop/Etf IVV.csv", header=FALSE, stringsAsFactors=FALSE)
+
+tk <- as.character(na.omit(Etf.IVV[which(Etf.IVV[,1] == "Ticker")+1:length(Etf.IVV[,1]),1]))
+
+wg <- as.numeric(na.omit(Etf.IVV[which(Etf.IVV[,4] == "Weight (%)")+1:length(Etf.IVV[,4]),4]))
+
+p <-  as.numeric(na.omit(Etf.IVV[which(Etf.IVV[,5] == "Price")+1:length(Etf.IVV[,5]),5]))
+
+s <- as.integer(na.omit(Etf.IVV[which(Etf.IVV[,6] == "Shares")+1:length(Etf.IVV[,6]),6]))
+
+nm <- as.character(na.omit(Etf.IVV[which(Etf.IVV[,2] == "Name")+1:length(Etf.IVV[,2]),2]))
+
+dtfm1 <- data.frame(tk,nm,wg,p,s)
+
+fs <- c("2016-09-01", "2018-09-01")
+
+
